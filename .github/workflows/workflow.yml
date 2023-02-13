@@ -1,0 +1,47 @@
+# 当有改动推送到master分支时，启动Action
+name: 自动部署
+
+on:
+  schedule:
+  - cron: "0 0 0/1 * * ?"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检查分支
+        uses: actions/checkout@v2
+
+      - name: 安装 Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: 安装模块
+        run: |
+          pip install -r requirements.txt
+
+      - name: 生成chart.html
+        env:
+          SQL_HOST: ${{ secrets.SQL_HOST }}
+          SQL_PORT: ${{ secrets.SQL_PORT }}
+          SQL_USER: ${{ secrets.SQL_USER }}
+          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          SQL_DB: ${{ secrets.SQL_DB }}
+        run: | 
+          export TZ='Asia/Shanghai'
+          python chart.py
+
+      - name: 暂存提交
+        run: |
+          git config --global user.name 'siuze'
+          git config --global user.email 'ieksiuze@gmail.com'
+          export TZ='Asia/Shanghai'
+          git add .
+          git commit -m "update" -a
+
+      - name: 推送
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.WeatherData }}
