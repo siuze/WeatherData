@@ -33,7 +33,11 @@ jobs:
         run: | 
           export TZ='Asia/Shanghai'
           python chart.py
-
+          ls
+      - name: Checkout current code
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: 暂存提交
         run: |
           git config --global user.name 'siuze'
@@ -41,7 +45,6 @@ jobs:
           export TZ='Asia/Shanghai'
           git add .
           git commit -m "update" -a
-
       - name: 推送
         uses: ad-m/github-push-action@master
         with:
