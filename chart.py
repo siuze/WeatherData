@@ -6,7 +6,7 @@ import os
 
     
 def draw_chart_week():
-	con = pymysql.connect(host = os.environ["SQL_HOST"],port=os.environ["SQL_PORT"],user=os.environ["SQL_USER"],password=os.environ["SQL_PASSWORD"],db=os.environ["SQL_DB"])
+	con = pymysql.connect(host = os.environ["SQL_HOST"],port=int(os.environ["SQL_PORT"]),user=os.environ["SQL_USER"],password=os.environ["SQL_PASSWORD"],db=os.environ["SQL_DB"])
 	data_sql=pd.read_sql("SELECT Time,Temp,Hum,Press,Rain from zcs where Time >= DATE_SUB(NOW(),INTERVAL 7 DAY) ORDER BY Time ",con)
 	# plot = px.area(data_frame=data_sql,x='Time',y='Temp',orientation='h')
 	Temp_avg=data_sql['Temp'].mean()
