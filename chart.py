@@ -314,8 +314,8 @@ def draw_chart_week():
 		]
 	)
 	# fig.show()
-	return fig.to_html(
-			# 'chart.html',
+	return fig.write_html(
+					'chart.html',
 					full_html=True,
 					include_plotlyjs='cdn')
 
