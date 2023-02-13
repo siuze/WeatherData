@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: 检查分支
         uses: actions/checkout@v2
-
+        with:
+          persist-credentials: false
       - name: 安装 Python 3.9
         uses: actions/setup-python@v1
         with:
@@ -34,10 +35,7 @@ jobs:
           export TZ='Asia/Shanghai'
           python chart.py
           ls
-      - name: Checkout current code
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+
       - name: 暂存提交
         run: |
           git config --global user.name 'siuze'
