@@ -1,5 +1,5 @@
 # 当有改动推送到master分支时，启动Action
-name: 自动部署
+name: 更新数据
 
 on:
   schedule:
