@@ -25,6 +25,7 @@ def draw_chart_week():
 	)
 
 	fig = go.Figure(layout=layout)
+	fig.update_layout(font_family='Optima, NotoSansSC, "Noto Sans SC", "Open Sans", verdana, arial, sans-serif')
 	bga=data_sql[(data_sql['Time'].dt.hour == 20) & (data_sql['Time'].dt.minute == 0) ]
 	if pd.to_datetime(data_sql.iloc[0]['Time']).strftime("%Y-%m-%d") != pd.to_datetime(bga.iloc[0]['Time']).strftime("%Y-%m-%d"):
 		bga = pd.concat([data_sql[0:1],bga])	
@@ -294,7 +295,7 @@ def draw_chart_week():
 						gridcolor='#e2e1e4'),
 						hoverformat='%Y年%m月%d日 %H:%M'
 					)
-	fig.write_image("chart.jpg", height=450, width=800, scale=10)
+	fig.write_image("chart.jpg", height=450, width=800, scale=5)
 	fig.update_xaxes(
 		rangeslider_visible=True,
 			rangeselector=dict(

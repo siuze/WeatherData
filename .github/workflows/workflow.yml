@@ -20,6 +20,23 @@ jobs:
         with:
           python-version: 3.9
 
+
+
+      # 因为执行的环境没有中文字体，抓中文网站会乱码，所以需要添加中文字体
+      - name: 添加中文字体
+        # run是具体执行的内容，多行的话，需要有这么一个 '|'
+        run: |
+          # 安装字体的环境
+          sudo apt-get install ttf-mscorefonts-installer
+          sudo apt-get install fontconfig
+          fc-list :lang=zh
+          ls -lh /usr/share/fonts/
+          cp -rf ./fonts/* /usr/share/fonts/
+          mkfontscale
+          mkfontdir
+          fc-cache
+          fc-list :lang=zh
+
       - name: 安装模块
         run: |
           pip install -r requirements.txt
