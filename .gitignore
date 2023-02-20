@@ -6,3 +6,5 @@
 *.ipynb
 *.sh
 /._DAV
+*.dir
+*.scale
