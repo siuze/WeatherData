@@ -294,6 +294,7 @@ def draw_chart_week():
 						gridcolor='#e2e1e4'),
 						hoverformat='%Y年%m月%d日 %H:%M'
 					)
+	fig.write_image("chart.jpg", height=450, width=800, scale=10)
 	fig.update_xaxes(
 		rangeslider_visible=True,
 			rangeselector=dict(
@@ -320,7 +321,6 @@ def draw_chart_week():
 					'chart.html',
 					full_html=True,
 					include_plotlyjs='cdn')
-	fig.write_image("chart.png", height=450, width=800, scale=25)
 	return 1
 
 
