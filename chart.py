@@ -26,9 +26,11 @@ def draw_chart_week():
 
 	fig = go.Figure(layout=layout)
 	bga=data_sql[(data_sql['Time'].dt.hour == 20) & (data_sql['Time'].dt.minute == 0) ]
+	if pd.to_datetime(data_sql.iloc[0]['Time']).strftime("%Y-%m-%d") != pd.to_datetime(bga.iloc[0]['Time']).strftime("%Y-%m-%d"):
+		bga = pd.concat([data_sql[0:1],bga])	
 	a_list=[]
 	for i in range(bga.shape[0]):
-		a_list.append(int((i+1)%2==0))
+		a_list.append(int((i)%2==0))
 	fig.add_trace(go.Histogram(
 		x=bga['Time'],y=a_list,
 		#  x=['2023-02-07 20:00','2023-02-08 20:00','2023-02-09 20:00','2023-02-10 20:00','2023-02-11 20:00','2023-02-12 20:00',],y=[30,0,30,0,30,0],
@@ -314,10 +316,12 @@ def draw_chart_week():
 		]
 	)
 	# fig.show()
-	return fig.write_html(
+	fig.write_html(
 					'chart.html',
 					full_html=True,
 					include_plotlyjs='cdn')
+	fig.write_image("chart.png", height=450, width=800, scale=25)
+	return 1
 
 
 draw_chart_week()

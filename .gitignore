@@ -1,0 +1,8 @@
+*.log
+*.temp
+/temp
+/tmp
+/build
+*.ipynb
+*.sh
+/._DAV
